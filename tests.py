@@ -9,9 +9,8 @@ class TestBooksCollector:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
     # затем, что тестируем add_two_books - добавление двух книг
-    def test_add_new_book_add_two_books(self):
+    def test_add_new_book_add_two_books(self, collector):
         # создаем экземпляр (объект) класса BooksCollector
-        collector = BooksCollector()
 
         # добавляем две книги
         collector.add_new_book('Гордость и предубеждение и зомби')
@@ -37,16 +36,14 @@ class TestBooksCollector:
         collector.add_new_book(book_title)
         assert book_title not in collector.get_books_genre()
 
-def test_add_new_book_book_not_added_again(self):
+def test_add_new_book_book_not_added_again(self, collector):
         # создаем экземпляр (объект) класса BooksCollector
-        collector = BooksCollector()
         collector.add_new_book('Гордость и предубеждение и зомби')
 
         assert len(collector.get_books_genre()) == 1
 
 
-    def test_set_book_genre_for_already_added_book(self):
-        collector = BooksCollector()
+    def test_set_book_genre_for_already_added_book(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
 
         collector.set_book_genre('Гордость и предубеждение и зомби', 'Фантастика')
@@ -54,15 +51,13 @@ def test_add_new_book_book_not_added_again(self):
         assert collector.get_book_genre('Гордость и предубеждение и зомби') == 'Фантастика'
 
 
-    def test_set_book_genre_not_set_if_book_not_in_dictionary(self):
-        collector = BooksCollector()
+    def test_set_book_genre_not_set_if_book_not_in_dictionary(self, collector):
         collector.set_book_genre('Гордость и предубеждение и зомби', 'Фантастика')
 
         assert collector.get_book_genre('Гордость и предубеждение и зомби') is None
 
 
-    def test_get_books_with_specific_genre_returns_correct_books(self):
-        collector = BooksCollector()
+    def test_get_books_with_specific_genre_returns_correct_books(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
@@ -74,8 +69,7 @@ def test_add_new_book_book_not_added_again(self):
         assert collector.get_books_with_specific_genre('Ужасы') == ['Что делать, если ваш кот хочет вас убить']
 
 
-    def test_get_books_for_children_returns_correct_books(self):
-        collector = BooksCollector()
+    def test_get_books_for_children_returns_correct_books(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
@@ -86,8 +80,7 @@ def test_add_new_book_book_not_added_again(self):
 
         assert 'Что делать, если ваш кот хочет вас убить' not in collector.get_books_for_children()
 
-    def test_add_book_in_favorites_if_book_in_dictionary(self):
-        collector = BooksCollector()
+    def test_add_book_in_favorites_if_book_in_dictionary(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_book_in_favorites('Гордость и предубеждение и зомби')
 
@@ -98,8 +91,7 @@ def test_add_new_book_book_not_added_again(self):
         assert collector.get_list_of_favorites_books() == ['Гордость и предубеждение и зомби']
 
 
-    def test_delete_book_from_favorites(self):
-        collector = BooksCollector()
+    def test_delete_book_from_favorites(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_book_in_favorites('Гордость и предубеждение и зомби')
 
@@ -111,8 +103,7 @@ def test_add_new_book_book_not_added_again(self):
 
         assert collector.get_list_of_favorites_books() == []
 
-    def test_get_list_of_favorites_books(self):
-        collector = BooksCollector()
+    def test_get_list_of_favorites_books(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
