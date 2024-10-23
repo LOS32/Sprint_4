@@ -22,25 +22,22 @@ class TestBooksCollector:
         assert len(collector.get_books_genre()) == 2
 
     @pytest.mark.parametrize('book_title', [
-        'Гордость и предубеждение и зомби Гордос',
-        'Гордость и предубеждение и зомби Гордост',
+        'Гордость и предубеждение и зомби',
+        'Гордость и предубеждение и зомби.',
     ])
-    def test_add_new_book_with_various_lengths(self, book_title):
-        collector = BooksCollector()
+    def test_add_new_book_with_various_lengths(self, collector, book_title):
         collector.add_new_book(book_title)
-
         assert book_title in collector.get_books_genre()
 
-    def test_add_new_book_book_not_added_if_more_than_forty_characters(self):
-        collector = BooksCollector()
-        long_title = 'Гордость и предубеждение и зомби Гордость и пред'
+    # Параметризуем тест для невалидных значений (41 символ и более)
+    @pytest.mark.parametrize('book_title', [
+        'Гордость и предубеждение и зомби Г',  # 41 символ
+    ])
+    def test_add_new_book_invalid_length(self, collector, book_title):
+        collector.add_new_book(book_title)
+        assert book_title not in collector.get_books_genre()
 
-        collector.add_new_book(long_title)
-
-        # Проверяем, что длинное название книги не добавилось
-        assert long_title not in collector.get_books_genre()
-
-    def test_add_new_book_book_not_added_again(self):
+def test_add_new_book_book_not_added_again(self):
         # создаем экземпляр (объект) класса BooksCollector
         collector = BooksCollector()
         collector.add_new_book('Гордость и предубеждение и зомби')
